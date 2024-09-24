@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <title>Add Student Data</title>
+</head>
+
+<body class="bg-gray-100">
+    <div class="flex items-center justify-center min-h-screen">
+        <div class="max-w-xl w-full py-6 px-8 bg-white rounded shadow-xl mx-4 sm:mx-0">
+            <form id="attendance-form" method="POST">
+                <div class="mb-6">
+                    <label for="date" class="block text-gray-800 font-bold">Subject:</label>
+                    <select id="sheetName" name="sheetName"
+                        class="w-full border border-gray-300 py-2 pl-3 rounded mt-2 outline-none focus:ring-indigo-600"
+                        required></select>
+                </div>
+                <div class="mb-6">
+                    <label for="rollNo" class="block text-gray-800 font-bold">Roll No:</label>
+                    <input type="number" name="rollNo" id="rollNo" placeholder="Roll No"
+                        class="w-full border border-gray-300 py-2 pl-3 rounded mt-2 outline-none focus:ring-indigo-600"
+                        required />
+                </div>
+                <div class="mb-6">
+                    <label for="date" class="block text-gray-800 font-bold">Date:</label>
+                    <input type="date" name="date" id="date" placeholder="Date"
+                        class="w-full border border-gray-300 py-2 pl-3 rounded mt-2 outline-none focus:ring-indigo-600"
+                        required />
+                </div>
+                <button type="submit"
+                    class="cursor-pointer py-2 px-4 block mt-6 bg-indigo-500 text-white font-bold w-full text-center rounded">Mark Attendance</button>
+            </form>
+            
+      <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbyMsaKeXZvh-fRNsF9YYvGyu_kiwIpUZSqxcDfpHtHZNORyafCRaKV1KCM4GGRUbRxjLQ/exec';
+        const form = document.getElementById('attendance-form');
+        const sheetDropdown = document.getElementById('sheetName');
+
+        // Function to load sheet names from backend
+        function loadSheetNames() {
+          fetch(`${scriptURL}?action=getSheets`)  // Ensure this URL matches your backend
+            .then(response => response.json())
+            .then(data => {
+              const sheetNames = data.sheetNames;
+              sheetNames.forEach(sheetName => {
+                const option = document.createElement('option');
+                option.value = sheetName;
+                option.text = sheetName;
+                sheetDropdown.appendChild(option);
+              });
+            })
+            .catch(error => console.error('Error loading sheet names!', error));
+        }
+
+        // Load the sheet names when the page loads
+        window.onload = loadSheetNames;
+
+        form.addEventListener('submit', e => {
+          e.preventDefault();
+          fetch(scriptURL, {
+            method: 'POST',
+            body: new FormData(form)
+          })
+            .then(response => response.json())
+            .then(result => {
+              if (result.result === 'success') {
+                alert("Success: " + result.message || "Attendance marked successfully!");
+              } else {
+                alert("Error: " + result.error);
+              }
+            })
+            .catch(error => console.error('Error!', error.message));
+        });
+      </script>
+        </div>
+    </div>
+</body>
+
+</html>

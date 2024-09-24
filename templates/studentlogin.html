@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <title>Add Student Data</title>
+</head>
+<body class="bg-gray-100">
+    <div class="flex items-center justify-center min-h-screen">
+        <div class="max-w-xl w-full py-6 px-8 bg-white rounded shadow-xl mx-4 sm:mx-0">
+            <form action="{{ url_for('add_student_data') }}" method="POST">
+                <!-- Hidden Inputs for Class Name and Date -->            
+                <div class="mb-6">
+                    <label for="studentName" class="block text-gray-800 font-bold">Student Name:</label>
+                    <input type="text" name="studentName" id="studentName" placeholder="Student Name" class="w-full border border-gray-300 py-2 pl-3 rounded mt-2 outline-none focus:ring-indigo-600" required />
+                </div>
+                <div class="mb-6">
+                    <label for="otp" class="block text-gray-800 font-bold">Code:</label>
+                    <input type="text" name="otp" id="otp" placeholder="Code" class="w-full border border-gray-300 py-2 pl-3 rounded mt-2 outline-none focus:ring-indigo-600" required />
+                </div>
+                <button type="submit" class="cursor-pointer py-2 px-4 block mt-6 bg-indigo-500 text-white font-bold w-full text-center rounded">click to next</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

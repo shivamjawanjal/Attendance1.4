@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <title>Student Login</title>
+
+    <style>
+        .animate-slide-in {
+            animation: slide-in 0.5s forwards;
+            animation-delay: 0.5s;
+        }
+
+        @keyframes slide-in {
+            0% {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100">
+    <div class="min-h-screen flex items-center justify-center">
+        <!-- Container for the form and branding -->
+        <div class="max-w-lg w-full p-6 bg-white shadow-lg rounded-lg">
+            <!-- Branding/logo section -->
+            <!-- Branding/logo section -->
+            <div class="text-center mb-8">
+                <img class="mx-auto h-12 w-12" src="https://www.svgrepo.com/show/301692/login.svg" alt="Login Logo">
+                <h2 class="mt-6 text-3xl font-bold text-gray-900 animate-slide-in">
+                    Welcome Back
+                </h2>
+                <!-- ... rest of the code ... -->
+                Don't have an account?
+                <a href="{{ url_for('create') }}" class="text-blue-600 hover:text-blue-500 font-medium">
+                    Create one here
+                </a>
+                </p>
+            </div>
+
+            <!-- Form section -->
+            <form action="{{ url_for('student_login') }}" method="post" class="space-y-6">
+                <!-- Username input field -->
+                <div>
+                    <label for="username" class="block text-sm font-medium text-gray-700">User Name
+                    </label>
+                    <input id="username" name="username" type="text" autocomplete="off" required
+                        class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                        placeholder="User Name">
+                </div>
+
+                <!-- Password input field -->
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                    <input id="password" name="password" type="password" autocomplete="off" required
+                        class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                        placeholder="••••••••">
+                </div>
+
+                <!-- Sign in as admin link -->
+                <div class="flex items-center justify-between">
+                    <div></div> <!-- Empty div to maintain spacing -->
+                    <div class="text-sm">
+                        <a href="{{ url_for('admin') }}" class="font-medium text-blue-600 hover:text-blue-500">
+                            Sign in as admin
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Submit button -->
+                <div>
+                    <button type="submit"
+                        class="w-full py-2 px-4 text-sm font-medium text-white bg-blue-600 rounded-md shadow-sm hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                        Sign in
+                    </button>
+                </div>
+
+                <!-- Display an alert message if present -->
+                {% if alertMsg %}
+                <div class="mt-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                    {{ alertMsg }}
+                </div>
+                {% endif %}
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
